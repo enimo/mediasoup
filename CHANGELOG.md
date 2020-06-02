@@ -1,5 +1,16 @@
 # Changelog
 
+### 3.6.3
+
+* Modernize TypeScript.
+* `gyp`: Fix CLT version detection in OSX Catalina.
+
+
+### 3.6.2
+
+* Fix crash in `Transport.ts` when closing a `DataConsumer` created on a `DirectTransport`.
+
+
 ### 3.6.1
 
 * Export new `DirectTransport` in `types`.

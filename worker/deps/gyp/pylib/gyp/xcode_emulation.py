@@ -726,6 +726,8 @@ class XcodeSettings(object):
   def _AddObjectiveCARCFlags(self, flags):
     if self._Test('CLANG_ENABLE_OBJC_ARC', 'YES', default='NO'):
       flags.append('-fobjc-arc')
+    if self._Test('CLANG_ENABLE_OBJC_WEAK', 'YES', default='NO'):
+      flags.append('-fobjc-weak')
 
   def _AddObjectiveCMissingPropertySynthesisFlags(self, flags):
     if self._Test('CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS',
@@ -1407,8 +1409,8 @@ def XcodeVersion():
       raise GypError("xcodebuild returned unexpected results")
     version = version_list[0].split()[-1]  # Last word on first line
     build = version_list[-1].split()[-1]  # Last word on last line
-  except GypError:  # Xcode not installed so look for XCode Command Line Tools
-    version = CLTVersion()   # macOS Catalina returns 11.0.0.0.xxx or 11.5
+  except GypError:  # Xcode not installed so look for CLT
+    version = CLTVersion()   # OS X 10.15 may returns 11.0.0.0.xxx or 11.5
     if not version:
       raise GypError("No Xcode or CLT version detected!")
   # Be careful to convert "4.2" to "0420" and "11.0.0" to "1100":
